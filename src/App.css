@@ -1,42 +1,58 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+html{
+  background-color: white;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+#image{
+  width:20rem;
+  height:20rem;
+  margin-right: 1.5rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#authorizeOption{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:1rem
+}
+#home{
+  display:flex;
+  flex-direction: row;
+  gap:5rem;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+}
+/* class button style 1 */
+.btnStyle1{
+  font-size: 25px;
+  color:white;
+  border:none; /* delete stroke */
+  background-color: #42EA5B;
+  border-radius: 15px;
+  width: 20rem;
+  height:4rem;
+  box-shadow: 0px 4px 0px #11AC28;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btnStyle1:hover{
+  background-color: #11AC28;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.btnStyle2{
+  font-size: 25px;
+  box-sizing: border-box;
+  color:#35B5ED;
+  border-radius: 15px;
+  background-color: white;
+  width: 20rem;
+  height:4rem;
+  border:#A49494 solid 1px;
+  box-shadow: 0px 4px 0px #A49494;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.btnStyle2:hover{
+  background-color: #A49494;
 }
