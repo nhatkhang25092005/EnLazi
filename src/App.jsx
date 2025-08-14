@@ -1,12 +1,8 @@
-import './App.css'
+import Home from "./features/home/home"
 
 function App() {
-  //please simplify the code in App()
   return (
-    <>
-      <p>Code App right here ~~</p>
-    </>
+    <Home/>
   )
 }
-
 export default App
