@@ -1,9 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap");
 
-html{
-  background-color: white;
-  font-family: 'Dosis',sans-serif;
-}
 
 #image{
   width:20rem;
@@ -25,37 +20,4 @@ html{
   justify-content: center;
   align-items: center;
   height:100vh;
-}
-/* class button style 1 */
-.btnStyle1{
-  font-size: 25px;
-  color:white;
-  border:none; /* delete stroke */
-  background-color: #42EA5B;
-  border-radius: 15px;
-  width: 20rem;
-  height:3rem;
-  box-shadow: 0px 4px 0px #11AC28;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-.btnStyle1:hover{
-  background-color: #11AC28;
-}
-
-.btnStyle2{
-  font-size: 25px;
-  box-sizing: border-box;
-  color:#35B5ED;
-  border-radius: 15px;
-  background-color: white;
-  width: 20rem;
-  height:3rem;
-  border:#A49494 solid 1px;
-  box-shadow: 0px 4px 0px #A49494;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-.btnStyle2:hover{
-  background-color: #A49494;
 }

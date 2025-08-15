@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap");
+
+html{
+  background-color: white;
+  font-family: 'Dosis',sans-serif;
+}
+
+/* class button style 1 */
+.btnStyle1{
+  font-size: 25px;
+  color:white;
+  border:none; /* delete stroke */
+  background-color: #42EA5B;
+  border-radius: 15px;
+  width: 20rem;
+  height:3rem;
+  box-shadow: 0px 4px 0px #11AC28;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btnStyle1:hover{
+  background-color: #11AC28;
+}
+
+/* class button style 2 */
+.btnStyle2{
+  font-size: 25px;
+  box-sizing: border-box;
+  color:#35B5ED;
+  border-radius: 15px;
+  background-color: white;
+  width: 20rem;
+  height:3rem;
+  border:#A49494 solid 1px;
+  box-shadow: 0px 4px 0px #A49494;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btnStyle2:hover{
+  background-color: #A49494;
+}
+
+.btnStyle3{
+  --input-bg-image:none;
+  background-image:var(--input-bg-image);
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px 20px;
+  font-size: 25px;
+  box-sizing: border-box;
+  color:#35B5ED;
+  border-radius: 15px;
+  background-color: white;
+  width: 20rem;
+  height:3rem;
+  border:#A49494 solid 1px;
+  box-shadow: 0px 4px 0px #A49494;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Input field */
+.inputStyle1{
+  --input-bg-image:none; /*set variable for image url*/
+  background-image: var(--input-bg-image); /* put the dynamic url into this att*/
+  background-repeat: no-repeat; /* set no repeat for img*/
+  background-position:10px center; /* set position for img*/
+  background-size: 20px 20px; /* set scale for img*/
+  box-sizing: border-box;
+  background-color: white;
+  height:3rem;
+  width:20rem;
+  border-radius: 15px;
+  font-size:19px;
+  padding-left:50px;
+  border:#A49494 solid 1px;
+}
