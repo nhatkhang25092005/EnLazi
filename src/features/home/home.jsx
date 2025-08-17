@@ -1,7 +1,9 @@
 import img from "../../assets/homeImg.png";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 export default function Home() {
   //html of home
+  const navigate = useNavigate();
   return (
     <div id="home">
       <img id="image" src={img} alt="Home image" />
@@ -11,10 +13,10 @@ export default function Home() {
             Learn English in an interesting <br /> and funny way!
           </strong>
         </p>
-        <button className="btnStyle1">
+        <button className="btnStyle1" onClick={() => navigate("/login")}>
           <strong>Login</strong>
         </button>
-        <button className="btnStyle2">
+        <button className="btnStyle2" onClick={() => navigate("/register")}>
           <strong>Register</strong>
         </button>
       </div>

@@ -7,14 +7,14 @@ export default function PasswordInput() {
   const [showPass, setShowPass] = useState(false);
 
   //TODO: nav to forgot password
-  const onForgot = ( )=> {
-    return
-  }
-
+  const onForgot = () => {
+    return;
+  };
 
   return (
     <div
       style={{
+        alignItems: "center",
         display: "inline-block",
         position: "relative",
       }}
@@ -29,7 +29,7 @@ export default function PasswordInput() {
         }}
       ></img>
       <input
-        type = {showPass ? "text" :"password"}
+        type={showPass ? "text" : "password"}
         style={{
           height: "3rem",
           borderRadius: "15px",
@@ -43,26 +43,26 @@ export default function PasswordInput() {
       ></input>
       <img
         src={showPass ? openEye : closeEye}
-        onClick={() => setShowPass((showPass)=>!showPass)}
+        onClick={() => setShowPass((showPass) => !showPass)}
         style={{
           width: "20px",
           position: "absolute",
           top: "30%",
           right: "70px",
-          cursor:"pointer"
+          cursor: "pointer",
         }}
       ></img>
-     <span
+      <span
         style={{
-            position:"absolute",
-            top:"27%",
-            right:"10px",
-            cursor:"pointer"
+          position: "absolute",
+          top: "27%",
+          right: "10px",
+          cursor: "pointer",
         }}
-
         onClick={onForgot}
-     
-     ><strong>Forgot?</strong></span>
+      >
+        <strong>Forgot?</strong>
+      </span>
     </div>
   );
 }

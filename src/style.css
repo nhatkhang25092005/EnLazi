@@ -58,6 +58,9 @@ html{
   transition: all 0.2s ease;
   cursor: pointer;
 }
+.btnStyle3:hover{
+  background-color: #A49494;
+}
 
 /* Input field */
 .inputStyle1{
