@@ -1,7 +1,17 @@
 #register_form{
     display:flex;
     flex-direction: column;
-    justify-content:center;
     align-items: center;
-    margin-top: 3.5rem;
+    margin-top: 2rem;
+}
+
+#register_form p{
+    align-self: "left";
+    width:100%;
+    text-align:"left";
+    margin-bottom:0px
+}
+
+#register_form h1{
+    margin-bottom:2rem;
 }
