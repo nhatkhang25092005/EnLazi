@@ -1,7 +1,7 @@
 import "./login.css";
 import ImgButton from "../../../shared/components/ImgButton";
-import PasswordInput from "./components/passwordInput";
-import EmailInput from "./components/emailInput";
+import PasswordInput from "../components/passwordInput";
+import EmailInput from "../components/emailInput";
 import google from "../../../assets/googleIcon.png";
 
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ export default function Login() {
         <br />
         <hr style={{ width: "100%" }} /> <br />
       </form>
-      <ImgButton image={google} className="btnStyle3">
+      <ImgButton image={google} >
         <strong>Google</strong>
       </ImgButton>
     </>

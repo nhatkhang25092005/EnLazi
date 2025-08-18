@@ -1,4 +1,4 @@
-import emailImg from "../../../../assets/email.png";
+import emailImg from "../../../assets/email.png";
 export default function EmailInput() {
   return (
     <div
@@ -19,6 +19,7 @@ export default function EmailInput() {
         }}
       />
       <input
+        placeholder="Email"
         type="email"
         style={{
           height: "3rem",

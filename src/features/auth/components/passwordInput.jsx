@@ -1,6 +1,6 @@
-import password from "../../../../assets/password.png";
-import openEye from "../../../../assets/openEye.png";
-import closeEye from "../../../../assets/closeEye.png";
+import password from "../../../assets/password.png";
+import openEye from "../../../assets/openEye.png";
+import closeEye from "../../../assets/closeEye.png";
 import { useState } from "react";
 
 export default function PasswordInput() {
