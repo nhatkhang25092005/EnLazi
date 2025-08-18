@@ -2,14 +2,11 @@ import password from "../../../assets/password.png";
 import openEye from "../../../assets/openEye.png";
 import closeEye from "../../../assets/closeEye.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PasswordInput() {
   const [showPass, setShowPass] = useState(false);
-
-  //TODO: nav to forgot password
-  const onForgot = () => {
-    return;
-  };
+  const navigate = useNavigate();
 
   return (
     <div
@@ -59,7 +56,7 @@ export default function PasswordInput() {
           right: "10px",
           cursor: "pointer",
         }}
-        onClick={onForgot}
+        onClick={() => navigate("/forgot")}
       >
         <strong>Forgot?</strong>
       </span>

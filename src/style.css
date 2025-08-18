@@ -4,6 +4,9 @@ html{
   background-color: white;
   font-family: 'Dosis',sans-serif;
 }
+p{
+  font-size: 20px;
+}
 
 /* class button style 1 */
 .btnStyle1{

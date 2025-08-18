@@ -1,27 +1,14 @@
-import EmailInput from "../components/emailInput";
+import EmailInput from "../components/EmailInput";
 import { PasswordRegister } from "./components";
 import googleImage from "../../../assets/googleIcon.png";
 import ImgButton from "../../../shared/components/ImgButton";
 import "./register.css";
-import { useNavigate } from "react-router-dom";
+import NavigateButton from "../components/NavigateButton";
 
 export default function Register() {
-  const navigate = useNavigate();
-
   return (
     <>
-      <button
-        onClick={()=>{navigate("/login")}}
-        className="btnStyle2"
-        style={{
-          position: "absolute",
-          right: "20px",
-          top: "20px",
-          width: "10rem",
-        }}
-      >
-        <strong>login</strong>
-      </button>
+      <NavigateButton name="Login" destination="/login"/>
       <form action="POST" id="register_form">
         <p style={{ align: "center", fontSize: "3rem" }}>
           <strong>Register</strong>
