@@ -2,7 +2,7 @@ import PasswordImg from "../../../assets/password.png";
 import openEye from "../../../assets/openEye.png";
 import closeEye from "../../../assets/closeEye.png";
 import { useState } from "react";
-function PasswordRegister({ placeholder }) {
+function PasswordRegister({name, value, changeFunc, placeholder }) {
   const [show, setShow] = useState(false);
 
   function handleOnClick() {
@@ -39,6 +39,9 @@ function PasswordRegister({ placeholder }) {
       />
 
       <input
+        name={name}
+        value={value}
+        onChange={(e)=>changeFunc(e)}
         id="passwordInput"
         type={show ? "text" : "password"}
         placeholder={placeholder}

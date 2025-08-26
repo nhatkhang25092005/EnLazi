@@ -1,5 +1,5 @@
 import emailImg from "../../../assets/email.png";
-export default function EmailInput() {
+export default function EmailInput({ value, changeFunc }) {
   return (
     <div
       style={{
@@ -19,6 +19,9 @@ export default function EmailInput() {
         }}
       />
       <input
+        onChange={(event) => changeFunc(event)}
+        value={value}
+        name="email"
         placeholder="Email"
         type="email"
         style={{

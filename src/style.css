@@ -1,83 +1,204 @@
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap");
 
-html{
+html {
   background-color: white;
-  font-family: 'Dosis',sans-serif;
+  font-family: "Dosis", sans-serif !important;
 }
-p{
+p {
   font-size: 20px;
 }
 
 /* class button style 1 */
-.btnStyle1{
+.btnStyle1 {
   font-size: 25px;
-  color:white;
-  border:none; /* delete stroke */
-  background-color: #42EA5B;
+  color: white;
+  border: none; /* delete stroke */
+  background-color: #42ea5b;
   border-radius: 15px;
   width: 20rem;
-  height:3rem;
-  box-shadow: 0px 4px 0px #11AC28;
+  height: 3rem;
+  box-shadow: 0px 4px 0px #11ac28;
   transition: all 0.2s ease;
   cursor: pointer;
+  font-family: "Dosis", sans-serif !important;
 }
-.btnStyle1:hover{
-  background-color: #11AC28;
+.btnStyle1:hover {
+  background-color: #11ac28;
 }
-
+.btnStyle1:focus {
+  outline: none;
+}
 /* class button style 2 */
-.btnStyle2{
+.btnStyle2 {
   font-size: 25px;
   box-sizing: border-box;
-  color:#35B5ED;
+  color: #35b5ed;
   border-radius: 15px;
   background-color: white;
   width: 20rem;
-  height:3rem;
-  border:#A49494 solid 1px;
-  box-shadow: 0px 4px 0px #A49494;
+  height: 3rem;
+  border: #a49494 solid 1px;
+  box-shadow: 0px 4px 0px #a49494;
   transition: all 0.2s ease;
   cursor: pointer;
 }
-.btnStyle2:hover{
-  background-color: #A49494;
+.btnStyle2:hover {
+  background-color: #a49494;
 }
 
-.btnStyle3{
-  --input-bg-image:none;
-  background-image:var(--input-bg-image);
+.btnStyle3 {
+  --input-bg-image: none;
+  background-image: var(--input-bg-image);
   background-repeat: no-repeat;
   background-position: 10px center;
   background-size: 20px 20px;
   font-size: 25px;
   box-sizing: border-box;
-  color:#35B5ED;
+  color: #35b5ed;
   border-radius: 15px;
   background-color: white;
   width: 20rem;
-  height:3rem;
-  border:#A49494 solid 1px;
-  box-shadow: 0px 4px 0px #A49494;
+  height: 3rem;
+  border: #a49494 solid 1px;
+  box-shadow: 0px 4px 0px #a49494;
   transition: all 0.2s ease;
   cursor: pointer;
 }
-.btnStyle3:hover{
-  background-color: #A49494;
+.btnStyle3:hover {
+  background-color: #a49494;
 }
 
 /* Input field */
-.inputStyle1{
-  --input-bg-image:none; /*set variable for image url*/
-  background-image: var(--input-bg-image); /* put the dynamic url into this att*/
+.inputStyle1 {
+  --input-bg-image: none; /*set variable for image url*/
+  background-image: var(
+    --input-bg-image
+  ); /* put the dynamic url into this att*/
   background-repeat: no-repeat; /* set no repeat for img*/
-  background-position:10px center; /* set position for img*/
+  background-position: 10px center; /* set position for img*/
   background-size: 20px 20px; /* set scale for img*/
   box-sizing: border-box;
   background-color: white;
-  height:3rem;
-  width:20rem;
+  height: 3rem;
+  width: 20rem;
   border-radius: 15px;
-  font-size:19px;
-  padding-left:50px;
-  border:#A49494 solid 1px;
+  font-size: 19px;
+  padding-left: 50px;
+  border: #a49494 solid 1px;
+  text-align: center;
+}
+
+/* Popup  */
+.popup {
+  width: fit-content;
+  height: fit-content;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 20px 50px 40px 50px;
+}
+
+dialog.popup[open]:not(.closing) {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+dialog.popup.closing {
+  animation: fadeOut 0.5s ease forwards;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+dialog.popup::backdrop {
+  animation: backdropFade 0.5s ease forwards;
+}
+
+dialog.popup.closing::backdrop {
+  animation: backdropFadeout 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes backdropFadeout {
+  to {
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes backdropFade {
+  to {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.loader {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  ;
+ background:transparent;
+ border:none;
+}
+
+.loader:focus{
+  outline:none;
+}
+
+
+
+.loader #cube1,
+.loader #cube2 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  border-radius: 20%;
+}
+
+.loader #cube1 {
+  border: 10px solid #42ea5b;
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+    animation: spin1 2s linear infinite;
+  border-radius: 20%;
+}
+
+.loader #cube2 {
+  border: 10px solid #a49494;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+    animation: spin2 2s linear infinite;
+}
+
+@keyframes spin1 {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin2 {
+  0% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
 }

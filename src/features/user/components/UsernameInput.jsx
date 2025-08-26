@@ -1,5 +1,5 @@
 import usernameIcon from "../../../assets/username.png"
-export default function UsernameInput() {
+export default function UsernameInput({value, changeFunc}) {
   return (
     <div
       style={{
@@ -19,8 +19,11 @@ export default function UsernameInput() {
         }}
       />
       <input
+        name="username"
         placeholder="Username"
-        type="email"
+        type="text"
+        onChange={(e)=>changeFunc(e)}
+        value={value}
         style={{
           height: "3rem",
           width: "20rem",
