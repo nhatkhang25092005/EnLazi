@@ -1,5 +1,4 @@
 import axiosClient from "./axiosClient";
-import axios from "axios";
 
 const userApi = {
   register: (email, username, password) =>
@@ -12,6 +11,11 @@ const userApi = {
     axiosClient.post("/auth/verify", {
       email: email,
       verify_code: verify_code,
+    }),
+  login: (email, password) =>
+    axiosClient.post("auth/signin", {
+      email: email,
+      password: password,
     }),
 };
 

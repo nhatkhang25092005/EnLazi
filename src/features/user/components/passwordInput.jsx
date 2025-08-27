@@ -4,7 +4,7 @@ import closeEye from "../../../assets/closeEye.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function PasswordInput() {
+export default function PasswordInput({value, changeFunc}) {
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
 
@@ -26,6 +26,7 @@ export default function PasswordInput() {
         }}
       ></img>
       <input
+        value={value}
         type={showPass ? "text" : "password"}
         style={{
           height: "3rem",
@@ -36,6 +37,8 @@ export default function PasswordInput() {
           boxSizing: "border-box",
           fontSize: "17px",
         }}
+        name="password"
+        onChange={(e)=>changeFunc(e)}
         placeholder="password"
       ></input>
       <img

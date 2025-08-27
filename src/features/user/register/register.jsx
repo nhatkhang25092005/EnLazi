@@ -123,16 +123,21 @@ export default function Register() {
     }
   }
 
-
- const handleGoogleLogin = () => {
-  window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/signin/google`;
-};
-
+  const handleGoogleLogin = () => {
+    window.location.href = `${
+      import.meta.env.VITE_API_BASE_URL
+    }/auth/signin/google`;
+  };
 
   return (
     <div id="register-page">
       <Loader ref={loader} />
-      <PopupModal image={errorImg} title="Error!" content={popupContent} ref={popup} />
+      <PopupModal
+        image={errorImg}
+        title="Error!"
+        content={popupContent}
+        ref={popup}
+      />
       <NavigateButton name="Login" destination="/login" />
       <form id="register_form" onSubmit={(e) => handleSubmit(e)}>
         <h1 style={{ align: "center", fontSize: "3rem" }}>
