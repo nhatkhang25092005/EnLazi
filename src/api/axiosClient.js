@@ -1,11 +1,14 @@
 import axios from "axios";
+
 const axiosClient = axios.create({
-    baseURL:import.meta.env.VITE_API_BASE_URL,
-    headers:{
-        "Content-Type":"application/json"
-    }
-})
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+});
 
-console.log(import.meta.env.VITE_API_BASE_URL)
-export default axiosClient
+axiosClient.interceptors.request.use((config) => {
+  if (["post", "put", "patch"].includes(config.method || "")) {
+    config.headers["Content-Type"] = "application/json";
+  }
+  return config;
+});
 
+export default axiosClient;

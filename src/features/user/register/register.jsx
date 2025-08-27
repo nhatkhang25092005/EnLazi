@@ -123,6 +123,12 @@ export default function Register() {
     }
   }
 
+
+ const handleGoogleLogin = () => {
+  window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/signin/google`;
+};
+
+
   return (
     <div id="register-page">
       <Loader ref={loader} />
@@ -167,6 +173,7 @@ export default function Register() {
 
       <ImgButton
         image={googleImage}
+        handleClick={handleGoogleLogin}
         style={{ marginTop: "20px", marginBottom: "30rem" }}
       >
         <strong>Google</strong>

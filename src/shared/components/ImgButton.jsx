@@ -1,7 +1,8 @@
-export default function ImgButton({ image, children, ...props }) {
+export default function ImgButton({handleClick=null, image, children, ...props }) {
   return (
     <>
       <button
+        onClick = {handleClick || null}
         className="btnStyle3"
         {...props}
         style={{
