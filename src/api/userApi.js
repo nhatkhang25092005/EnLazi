@@ -7,6 +7,7 @@ const userApi = {
       username: username,
       password: password,
     }),
+  google:()=>axiosClient.post("auth/signin/google"),
   verify: (email, verify_code) =>
     axiosClient.post("/auth/verify", {
       email: email,

@@ -97,9 +97,9 @@ export default function Login() {
   }
 
   const handleGoogleLogin = () => {
-    window.location.href = `${
-      import.meta.env.VITE_API_BASE_URL
-    }/auth/signin/google`;
+      userApi.google()
+      .then()
+      .catch()
   };
 
   return (
@@ -119,7 +119,7 @@ export default function Login() {
         </h2>
         <Notification message={errorMessages.email} />
         <EmailInput value={input.email} changeFunc={handleInput} />
-        <br />
+        <br /> 
         <Notification message={errorMessages.password} />
         <PasswordInput value={input.password} changeFunc={handleInput} />
         <br />
