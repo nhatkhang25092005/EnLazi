@@ -1,16 +1,17 @@
 import "./login.css";
-import ImgButton from "../../../shared/components/ImgButton";
+import ImgButton from "../../../shared/components/GoogleButton";
 import PasswordInput from "../components/passwordInput";
 import EmailInput from "../components/EmailInput";
-import google from "../../../assets/googleIcon.png";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import errImg from "../../../assets/error.png";
 import NavigateButton from "../components/NavigateButton";
-import Notification from "../components/Notification";
+import Notification from "../../../shared/components/Notification";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userApi from "../../../api/userApi";
 import PopupModal from "../components/PopupModal";
 import Loader from "../../../shared/components/Loader";
+import GoogleButton from "../../../shared/components/GoogleButton";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -96,12 +97,6 @@ export default function Login() {
       });
   }
 
-  const handleGoogleLogin = () => {
-      userApi.google()
-      .then()
-      .catch()
-  };
-
   return (
     <>
       <PopupModal
@@ -129,9 +124,10 @@ export default function Login() {
         <br />
         <hr style={{ width: "100%" }} /> <br />
       </form>
-      <ImgButton image={google} onClick={handleGoogleLogin}>
-        <strong>Google</strong>
-      </ImgButton>
+       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID} >
+        <GoogleButton
+        />
+      </GoogleOAuthProvider>
     </>
   );
 }

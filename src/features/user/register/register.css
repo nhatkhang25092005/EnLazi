@@ -17,4 +17,15 @@
 
 #register_form h1{
     margin-bottom:2rem;
+    font-size: 3rem;
+    text-align: center;
+}
+
+#register_form hr{
+    width:20rem;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+#register_form button{
+    margin-top:20px;
 }

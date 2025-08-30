@@ -1,8 +1,8 @@
-import PasswordImg from "../../../assets/password.png";
-import openEye from "../../../assets/openEye.png";
-import closeEye from "../../../assets/closeEye.png";
+import PasswordImg from "../../../../assets/password.png";
+import openEye from "../../../../assets/openEye.png";
+import closeEye from "../../../../assets/closeEye.png";
 import { useState } from "react";
-function PasswordRegister({name, value, changeFunc, placeholder }) {
+export default function RegisterPassword({name, value, changeFunc, placeholder }) {
   const [show, setShow] = useState(false);
 
   function handleOnClick() {
@@ -57,4 +57,4 @@ function PasswordRegister({name, value, changeFunc, placeholder }) {
   );
 }
 
-export { PasswordRegister };
+
