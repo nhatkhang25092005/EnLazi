@@ -4,7 +4,8 @@ import {
   UsernameInput,
   PopupModal,
   NavigateButton,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  FormField
 } from "../components";
 
 //shared components
@@ -14,7 +15,7 @@ import {Loader} from "../../../shared/components";
 import errorImg from "../../../assets/error.png";
 
 //page component
-import { RegisterPassword,RegisterFormField } from "./components";
+import  RegisterPassword  from "./components/RegisterPassword";
 
 //css 
 import "./register.css";
@@ -42,20 +43,20 @@ export default function Register() {
     <div id="register-page">
       <Loader ref={loader} />
       <PopupModal image={errorImg} title={REGISTER_CONSTANTS.ERROR_TITLE} content={popupContent} ref={popup} />
-      <NavigateButton name={REGISTER_CONSTANTS.LOGIN_BUTTON} destination="/login" />
+      <NavigateButton name={REGISTER_CONSTANTS.NAVIGATE_BUTTON} destination="/login" />
       <form id="register_form" onSubmit={(e) => handleSubmit(e)}>
         <h1><strong>{REGISTER_CONSTANTS.TITLE}</strong></h1>
 
-        <RegisterFormField message={errorLabels.email}><EmailInput value={input.email} changeFunc={handleChange} /></RegisterFormField>
-        <RegisterFormField message={errorLabels.username}><UsernameInput value={input.username} changeFunc={handleChange} /></RegisterFormField>
-        <RegisterFormField message={errorLabels.password}><RegisterPassword name="password" value={input.password} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.PASSWORD_PLACEHOLDER} /></RegisterFormField>
-        <RegisterFormField message={errorLabels.repass}><RegisterPassword name="repass" value={input.repass} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.RE_PASSWORD_PLACEHOLDER} /></RegisterFormField>
+        <FormField message={errorLabels.email}><EmailInput value={input.email} changeFunc={handleChange} /></FormField>
+        <FormField message={errorLabels.username}><UsernameInput value={input.username} changeFunc={handleChange} /></FormField>
+        <FormField message={errorLabels.password}><RegisterPassword name="password" value={input.password} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.PASSWORD_PLACEHOLDER} /></FormField>
+        <FormField message={errorLabels.repass}><RegisterPassword name="repass" value={input.repass} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.RE_PASSWORD_PLACEHOLDER} /></FormField>
       
         <button type="submit" className="btnStyle1"><strong>{REGISTER_CONSTANTS.BUTTON_TEXT}</strong></button>
 
         <hr />  {/* Line break */}
       </form>
-      <GoogleAuthProvider/>
+      <GoogleAuthProvider/>{/* Google Button */}
     </div>
   );
 }

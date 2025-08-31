@@ -1,133 +1,54 @@
+//css
 import "./login.css";
-import ImgButton from "../../../shared/components/GoogleButton";
-import PasswordInput from "../components/passwordInput";
-import EmailInput from "../components/EmailInput";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+
+//feature components
+import {
+  PasswordInput,
+  EmailInput,
+  GoogleAuthProvider,
+  NavigateButton,
+  PopupModal,
+  FormField
+} from "../components";
+
+//image
 import errImg from "../../../assets/error.png";
-import NavigateButton from "../components/NavigateButton";
-import Notification from "../../../shared/components/Notification";
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import userApi from "../../../api/userApi";
-import PopupModal from "../components/PopupModal";
-import Loader from "../../../shared/components/Loader";
-import GoogleButton from "../../../shared/components/GoogleButton";
+
+//shared components
+import { Loader } from "../../../shared/components";
+
+//logic
+import useLoginForm from "./useLoginForm";
+
+//constant text
+import { LOGIN_CONSTANTS } from "../../../shared/constants/messages";
+
 
 export default function Login() {
-  const navigate = useNavigate();
-  //input state
-  const [input, setInput] = useState({ email: "", password: "" });
+  const {
+    input,
+    errorMessages,
+    popup,
+    loader,
+    popupContent,
+    handleInput,
+    handleSubmit,
+  } = useLoginForm();
 
-  //field error state
-  const [errorMessages, setErrorMessages] = useState({
-    email: "",
-    password: "",
-  });
-
-  //popup error state
-  const [popupContent, setPopupContent] = useState("");
-
-  const popup = useRef(null);
-  const loader = useRef(null);
-
-  //handle input state
-  function handleInput(event) {
-    const { value, name } = event.target;
-    setInput((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
-  //handle submit
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    //handle empty fields
-    setErrorMessages({
-      email: "",
-      password: "",
-    });
-    let isEmpty = false;
-    for (const [field, value] of Object.entries(input)) {
-      if (value == "") {
-        isEmpty = true;
-        setErrorMessages((prev) => ({
-          ...prev,
-          [field]: `${field} can not be empty!`,
-        }));
-      }
-    }
-    if (isEmpty) return;
-
-    //handle call api
-    loader.current.showModal();
-    userApi
-      .login(input.email, input.password)
-      //if success
-      .then((res) => {
-        console.log(res);
-        navigate("/dashboard");
-      })
-      //if error catch
-      .catch((err) => {
-        console.log(err);
-        const messages = err?.response?.data?.message;
-
-        if (Array.isArray(messages)) {
-          // when message is an array
-          messages.forEach((msg) => {
-            Object.keys(errorMessages).forEach((key) => {
-              if (msg.toLowerCase().includes(key))
-                setErrorMessages((prev) => ({
-                  ...prev,
-                  [key]: msg,
-                }));
-            });
-          });
-        } else {
-          setPopupContent(messages);
-          popup.current.showModal();
-        }
-      })
-      .finally(() => {
-        if (loader.current?.open) {
-          loader.current.close();
-        }
-      });
-  }
-
+  /* prettier-ignore */
   return (
     <>
-      <PopupModal
-        title="Error"
-        colorTitle="red"
-        content={popupContent}
-        image={errImg}
-        ref={popup}
-      />
+      <PopupModal title={LOGIN_CONSTANTS.ERROR_TITLE} colorTitle="red" content={popupContent} image={errImg} ref={popup} />
       <Loader ref={loader} />
-      <NavigateButton name={"Register"} destination={"/register"} />
+      <NavigateButton name={LOGIN_CONSTANTS.NAVIGATE_BUTTON} destination={"/register"} />
       <form id="login_form">
-        <h2 style={{ textAlign: "center", fontSize: "3rem" }}>
-          <strong>Login</strong>
-        </h2>
-        <Notification message={errorMessages.email} />
-        <EmailInput value={input.email} changeFunc={handleInput} />
-        <br /> 
-        <Notification message={errorMessages.password} />
-        <PasswordInput value={input.password} changeFunc={handleInput} />
-        <br />
-        <button onClick={(e) => handleSubmit(e)} className="btnStyle1">
-          <strong>Login</strong>
-        </button>
-        <br />
-        <hr style={{ width: "100%" }} /> <br />
+        <h2 style={{ textAlign: "center", fontSize: "3rem" }}><strong>{LOGIN_CONSTANTS.TITLE}</strong></h2>
+        <FormField message={errorMessages.email}><EmailInput value={input.email} changeFunc={handleInput} /></FormField>
+        <FormField message={errorMessages.password}><PasswordInput value={input.password} changeFunc={handleInput} /></FormField>
+        <button onClick={(e) => handleSubmit(e)} className="btnStyle1"><strong>{LOGIN_CONSTANTS.TITLE}</strong></button>
+        <hr/> 
       </form>
-       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID} >
-        <GoogleButton
-        />
-      </GoogleOAuthProvider>
+      <GoogleAuthProvider/>{/* Google Button */}
     </>
   );
 }

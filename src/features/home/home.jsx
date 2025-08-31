@@ -1,9 +1,7 @@
 import img from "../../assets/homeImg.png";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
-import axiosClient from "../../api/axiosClient"
 export default function Home() {
-  console.log( axiosClient)
   //html of home
   const navigate = useNavigate();
   return (
