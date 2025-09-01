@@ -1,16 +1,17 @@
+import { useState, useRef } from "react";
+import { handleLoginRequest } from "../../../shared/services/handleApi";
 import { useNavigate } from "react-router-dom";
-import { useState,useRef } from "react";
-import userApi from "../../../api/userApi"
+import { handleLoginResponse } from "../../../shared/services/handleResponse";
+import { checkEmptyObject } from "../../../shared/services/checkEmpty";
+
+/* prettier-ignore */
 export default function useLoginForm() {
   const navigate = useNavigate();
   //input state
   const [input, setInput] = useState({ email: "", password: "" });
 
-  //field error state
-  const [errorMessages, setErrorMessages] = useState({
-    email: "",
-    password: "",
-  });
+  //field error state, it will be override if error occurs
+  const [errorMessages, setErrorMessages] = useState({});
 
   //popup error state
   const [popupContent, setPopupContent] = useState("");
@@ -28,76 +29,34 @@ export default function useLoginForm() {
   }
 
   //handle submit
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     //handle empty fields
-    setErrorMessages({
-      email: "",
-      password: "",
-    });
-    let isEmpty = false;
-    for (const [field, value] of Object.entries(input)) {
-      if (value == "") {
-        isEmpty = true;
-        setErrorMessages((prev) => ({
-          ...prev,
-          [field]: `${field} can not be empty!`,
-        }));
-      }
+    const emptyFields = checkEmptyObject(input);
+    if (emptyFields != null) {
+      setErrorMessages(emptyFields);
+      return;
     }
-    if (isEmpty) return;
 
-    //handle call api
+    //loader on
     loader.current.showModal();
-    userApi
-      .login(input.email, input.password)
-      //if success
-      .then((res) => {
-        console.log(res);
-        navigate("/dashboard");
-      })
-      //if error catch
-      .catch((err) => {
-        if(err.code === "ERR_NETWORK"){
-          setPopupContent(err.message)
-          popup.current.showModal();
-          return
-        }
-        const messages = err?.response?.data?.message
 
-        if (Array.isArray(messages)) {
-          // when message is an array
-          messages.forEach((msg) => {
-            Object.keys(errorMessages).forEach((key) => {
-              if (msg.toLowerCase().includes(key))
-                setErrorMessages((prev) => ({
-                  ...prev,
-                  [key]: msg,
-                }));
-            });
-          });
-        } else {
-          setPopupContent(messages);
-          popup.current.showModal();
-        }
-      })
-      .finally(() => {
-        if (loader.current?.open) {
-          loader.current.close();
-        }
-      });
+    //handle Api req and res =)
+    try{
+      const response = await handleLoginRequest(input.email, input.password); //call api
+      await handleLoginResponse(response, {navigate, setErrorMessages, setPopupContent, popup,}); //handle api
+    }
+    finally{loader.current.close()}
   }
 
-  return{
+  return {
     input,
     errorMessages,
     popup,
     loader,
     popupContent,
     handleInput,
-    handleSubmit
-  }
+    handleSubmit,
+  };
 }
-
-

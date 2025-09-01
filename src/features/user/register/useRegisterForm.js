@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import userApi from "../../../api/userApi";
+import {PATH} from "../../.././shared/constants/path"
 export default function useRegisterForm() {
   const navigate = useNavigate();
   const popup = useRef(null);
@@ -53,7 +54,7 @@ export default function useRegisterForm() {
     userApi
       .register(input.email, input.username, input.password)
       .then(() => {
-        navigate("./verify", { state: { email: input.email } });
+        navigate(PATH.VERIFY, { state: { email: input.email } });
       })
       .catch((err) => {
         const messages = err.response?.data?.message;

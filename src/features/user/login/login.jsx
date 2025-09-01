@@ -22,6 +22,7 @@ import useLoginForm from "./useLoginForm";
 
 //constant text
 import { LOGIN_CONSTANTS } from "../../../shared/constants/messages";
+import {PATH} from "../../../shared/constants/path"
 
 
 export default function Login() {
@@ -34,13 +35,14 @@ export default function Login() {
     handleInput,
     handleSubmit,
   } = useLoginForm();
+  console.log(errorMessages)
 
   /* prettier-ignore */
   return (
     <>
       <PopupModal title={LOGIN_CONSTANTS.ERROR_TITLE} colorTitle="red" content={popupContent} image={errImg} ref={popup} />
       <Loader ref={loader} />
-      <NavigateButton name={LOGIN_CONSTANTS.NAVIGATE_BUTTON} destination={"/register"} />
+      <NavigateButton name={LOGIN_CONSTANTS.NAVIGATE_BUTTON} destination={PATH.REGISTER} />
       <form id="login_form">
         <h2 style={{ textAlign: "center", fontSize: "3rem" }}><strong>{LOGIN_CONSTANTS.TITLE}</strong></h2>
         <FormField message={errorMessages.email}><EmailInput value={input.email} changeFunc={handleInput} /></FormField>

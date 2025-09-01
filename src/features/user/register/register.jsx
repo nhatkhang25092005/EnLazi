@@ -24,9 +24,9 @@ import "./register.css";
 //custom hook
 import useRegisterForm from "./useRegisterForm";
 
-//constants messages
+//constants
 import {REGISTER_CONSTANTS} from "../../../shared/constants/messages"
-
+import {PATH} from "../../../shared/constants/path"
 export default function Register() {
   const {
     input,
@@ -43,7 +43,7 @@ export default function Register() {
     <div id="register-page">
       <Loader ref={loader} />
       <PopupModal image={errorImg} title={REGISTER_CONSTANTS.ERROR_TITLE} content={popupContent} ref={popup} />
-      <NavigateButton name={REGISTER_CONSTANTS.NAVIGATE_BUTTON} destination="/login" />
+      <NavigateButton name={REGISTER_CONSTANTS.NAVIGATE_BUTTON} destination={PATH.LOGIN} />
       <form id="register_form" onSubmit={(e) => handleSubmit(e)}>
         <h1><strong>{REGISTER_CONSTANTS.TITLE}</strong></h1>
 

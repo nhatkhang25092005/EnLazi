@@ -15,3 +15,11 @@ export const LOGIN_CONSTANTS={
     BUTTON_TEXT:"Login",
     NAVIGATE_BUTTON:"Register"
 }
+
+//constant texts for verify page
+export const VERIFY_CONSTANTS={
+    TITLE:"Validation",
+    TELL1:"We've sent you an email with a code.",
+    TELL2:"Please check it and fill in the field below.",
+    BUTTON_TEXT:"Submit"
+}
