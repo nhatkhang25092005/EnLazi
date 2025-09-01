@@ -1,29 +1,20 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import ggImg from "../../assets/googleIcon.png";
-import userApi from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
+import { handleGoogleRequest } from "../services/handleRequest";
+import { PATH } from "../constants/path";
 
 export default function GoogleButton() {
   const navigate = useNavigate(null);
   const login = useGoogleLogin({
     flow: `auth-code`,
     onSuccess: async (response) => {
-      userApi
-        .google(response.code)
-        .then((res) => {
-          const data = res.data.data
-          console.log(data)
-          sessionStorage.setItem("accessToken", data.accesstoken);
-          sessionStorage.setItem("refreshToken", data.refreshtoken);
-          sessionStorage.setItem("sessionId", data.sessionid);
-
-          navigate("/dashboard");
-        })
-        .catch()
-        .finally();
+      const apiRes = await handleGoogleRequest(response.code)
+      if(!apiRes) navigate(PATH.DASHBOARD)
     },
     onError: () => {
       console.log("Login fail!");
+      alert("Can not connect to google. Please try it later")
     },
   });
   return (

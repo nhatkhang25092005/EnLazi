@@ -25,13 +25,29 @@ export function handleLoginRequest(email, password) {
 }
 
 //Register
-export function handleRegisterRequest( email, username, password ) {
+export function handleRegisterRequest(email, username, password) {
   return userApi
     .register(email, username, password)
     .then(() => {
       return null;
     })
     .catch((err) => classifyError(err));
+}
+
+//Google
+export function handleGoogleRequest(code) {
+  return userApi.google(code)
+  .then((res) => {
+    const data = res.data.data;
+    sessionStorage.setItem("accessToken", data.accesstoken);
+    sessionStorage.setItem("refreshToken", data.refreshtoken);
+    sessionStorage.setItem("sessionId", data.sessionid);
+    return null
+  })
+  .catch((err)=>{
+    console.err("Google Error:",err)
+    alert("Login with google fail, Please try again")
+  })
 }
 
 export function handleVerifyRequest({ code }) {}
