@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { handleLoginRequest } from "../../../shared/services/handleApi";
+import { handleLoginRequest } from "../../../shared/services/handleRequest";
 import { useNavigate } from "react-router-dom";
 import { handleLoginResponse } from "../../../shared/services/handleResponse";
 import { checkEmptyObject } from "../../../shared/services/checkEmpty";
@@ -43,11 +43,9 @@ export default function useLoginForm() {
     loader.current.showModal();
 
     //handle Api req and res =)
-    try{
-      const response = await handleLoginRequest(input.email, input.password); //call api
-      await handleLoginResponse(response, {navigate, setErrorMessages, setPopupContent, popup,}); //handle api
-    }
-    finally{loader.current.close()}
+    const response = await handleLoginRequest(input.email, input.password); //call api
+    handleLoginResponse(response, {navigate, setErrorMessages, setPopupContent, popup,}); //handle api
+    loader.current.close()
   }
 
   return {

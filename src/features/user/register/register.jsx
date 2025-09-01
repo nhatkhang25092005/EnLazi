@@ -33,7 +33,7 @@ export default function Register() {
     popup,
     loader,
     popupContent,
-    errorLabels,
+    errorMessages,
     handleChange,
     handleSubmit,
   } = useRegisterForm();
@@ -47,10 +47,10 @@ export default function Register() {
       <form id="register_form" onSubmit={(e) => handleSubmit(e)}>
         <h1><strong>{REGISTER_CONSTANTS.TITLE}</strong></h1>
 
-        <FormField message={errorLabels.email}><EmailInput value={input.email} changeFunc={handleChange} /></FormField>
-        <FormField message={errorLabels.username}><UsernameInput value={input.username} changeFunc={handleChange} /></FormField>
-        <FormField message={errorLabels.password}><RegisterPassword name="password" value={input.password} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.PASSWORD_PLACEHOLDER} /></FormField>
-        <FormField message={errorLabels.repass}><RegisterPassword name="repass" value={input.repass} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.RE_PASSWORD_PLACEHOLDER} /></FormField>
+        <FormField message={errorMessages.email}><EmailInput value={input.email} changeFunc={handleChange} /></FormField>
+        <FormField message={errorMessages.username}><UsernameInput value={input.username} changeFunc={handleChange} /></FormField>
+        <FormField message={errorMessages.password}><RegisterPassword name="password" value={input.password} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.PASSWORD_PLACEHOLDER} /></FormField>
+        <FormField message={errorMessages.repass}><RegisterPassword name="repass" value={input.repass} changeFunc={handleChange} placeholder={REGISTER_CONSTANTS.RE_PASSWORD_PLACEHOLDER} /></FormField>
       
         <button type="submit" className="btnStyle1"><strong>{REGISTER_CONSTANTS.BUTTON_TEXT}</strong></button>
 

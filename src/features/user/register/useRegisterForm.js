@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import userApi from "../../../api/userApi";
-import {PATH} from "../../.././shared/constants/path"
+import { handleRegisterRequest } from "../../../shared/services/handleRequest";
+import { handleRegisterResponse } from "../../../shared/services/handleResponse";
+import { checkEmptyObject } from "../../../shared/services/checkEmpty";
 export default function useRegisterForm() {
   const navigate = useNavigate();
   const popup = useRef(null);
@@ -12,7 +13,7 @@ export default function useRegisterForm() {
     password: "",
     repass: "",
   });
-  const [errorLabels, setErrorLabels] = useState({
+  const [errorMessages, setErrorMessages] = useState({
     email: "",
     username: "",
     password: "",
@@ -27,51 +28,31 @@ export default function useRegisterForm() {
 
   //handle error function
   const handleError = (field, error) => {
-    setErrorLabels((prev) => ({ ...prev, [field]: error }));
+    setErrorMessages((prev) => ({ ...prev, [field]: error }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorLabels({ email: "", username: "", password: "", repass: "" });
 
-    let isEmpty = false;
-    for (const [field, value] of Object.entries(input)) {
-      if (!value) {
-        isEmpty = true;
-        handleError(field, `${field} can not be null`);
-      }
+    //check empty fields
+    const errors = checkEmptyObject(input)
+    if(errors){
+      setErrorMessages(errors)
+      return
     }
 
-    if (isEmpty) return;
-
+    //check matching
     if (input.password !== input.repass) {
       handleError("repass", "Password does not match !");
       return;
     }
 
-    loader.current?.showModal();
-
-    userApi
-      .register(input.email, input.username, input.password)
-      .then(() => {
-        navigate(PATH.VERIFY, { state: { email: input.email } });
-      })
-      .catch((err) => {
-        const messages = err.response?.data?.message;
-        if (Array.isArray(messages)) {
-          messages.forEach((msg) => {
-            Object.keys(errorLabels).forEach((key) => {
-              if (msg.toLowerCase().includes(key)) handleError(key, msg);
-            });
-          });
-        } else if (typeof messages === "string") {
-          setPopupContent(messages);
-          popup.current?.showModal();
-        }
-      })
-      .finally(() => {
-        loader.current?.close();
-      });
+    //handle register api
+    loader.current.showModal();
+    const response = await handleRegisterRequest(input.email, input.username, input.password)
+    console.log(response)
+    handleRegisterResponse(response,{navigate, email: input.email,setErrorMessages,setPopupContent,popup})
+    loader.current.close()
   };
 
   const [popupContent, setPopupContent] = useState("");
@@ -81,7 +62,7 @@ export default function useRegisterForm() {
     popup,
     loader,
     popupContent,
-    errorLabels,
+    errorMessages,
     handleChange,
     handleSubmit
   };

@@ -1,4 +1,4 @@
 export const DISPLAY = {
-    type1 : "field",
+    type1 : "magic",
     type2 : "popup"
 }

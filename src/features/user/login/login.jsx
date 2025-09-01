@@ -35,7 +35,6 @@ export default function Login() {
     handleInput,
     handleSubmit,
   } = useLoginForm();
-  console.log(errorMessages)
 
   /* prettier-ignore */
   return (
