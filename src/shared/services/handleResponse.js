@@ -32,8 +32,9 @@ export function handleRegisterResponse(
   response,
   { navigate, email, setErrorMessages, setPopupContent, popup }
 ) {
+  console.log(email)
   if (!response) {
-    navigate(PATH.VERIFY, { state: { email: email } });
+    navigate(PATH.VERIFY, { state: email });
     return;
   }
   if (response.type === DISPLAY.type1) {
@@ -49,8 +50,31 @@ export function handleRegisterResponse(
         "",
     });
   }
-  if(response.type === DISPLAY.type2){
-    setPopupContent(response.error)
-    popup.current.showModal()
+  if (response.type === DISPLAY.type2) {
+    setPopupContent(response.error);
+    popup.current.showModal();
+  }
+}
+
+//handle verify response
+export function handleVerifyResponse(
+  response,
+  { setNotification, navigate, img: { successfulImg, errorImg } }
+) {
+  if (!response) {
+    setNotification({
+      title: "Verify Successful",
+      colorTitle: "green",
+      content: "Your account has been verified.",
+      image: successfulImg,
+      handleButton: () => navigate(PATH.LOGIN),
+    });
+  } else {
+    setNotification({
+      title: "Invalid",
+      colorTitle: "red",
+      content: response.error || "Something went wrong!",
+      image: errorImg,
+    });
   }
 }

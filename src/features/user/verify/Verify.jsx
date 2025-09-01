@@ -38,7 +38,7 @@ export default function Verify() {
         <strong>{VERIFY_CONSTANTS.TELL2}</strong>
       </p>
       <CodeInput code={code} setCode={setCode}/>
-      <button className="btnStyle1" onClick={handleSubmit}>
+      <button  className="btnStyle1" onClick={handleSubmit} >
         <strong>{VERIFY_CONSTANTS.BUTTON_TEXT}</strong>
       </button>
     </div>

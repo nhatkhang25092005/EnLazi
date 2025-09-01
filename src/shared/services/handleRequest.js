@@ -36,18 +36,29 @@ export function handleRegisterRequest(email, username, password) {
 
 //Google
 export function handleGoogleRequest(code) {
-  return userApi.google(code)
-  .then((res) => {
-    const data = res.data.data;
-    sessionStorage.setItem("accessToken", data.accesstoken);
-    sessionStorage.setItem("refreshToken", data.refreshtoken);
-    sessionStorage.setItem("sessionId", data.sessionid);
-    return null
-  })
-  .catch((err)=>{
-    console.err("Google Error:",err)
-    alert("Login with google fail, Please try again")
-  })
+  return userApi
+    .google(code)
+    .then((res) => {
+      const data = res.data.data;
+      sessionStorage.setItem("accessToken", data.accesstoken);
+      sessionStorage.setItem("refreshToken", data.refreshtoken);
+      sessionStorage.setItem("sessionId", data.sessionid);
+      return null;
+    })
+    .catch((err) => {
+      console.err("Google Error:", err);
+      alert("Login with google fail, Please try again");
+    });
 }
 
-export function handleVerifyRequest({ code }) {}
+export function handleVerifyRequest(email, code) {
+  if(!email) return {type:DISPLAY.type2,error:"email is empty!"}
+  return userApi
+    .verify(email, code)
+    .then(() => null)
+    .catch((err) => ({
+      type: DISPLAY.type2,
+      error: err.response.data.message,
+    }
+  ));
+}

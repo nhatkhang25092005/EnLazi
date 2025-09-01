@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import userApi from "../../../api/userApi";
 import errorImg from "../../../assets/error.png";
 import successfulImg from "../../../assets/successful.png";
+import { handleVerifyRequest } from "../../../shared/services/handleRequest";
+import { handleVerifyResponse } from "../../../shared/services/handleResponse";
 export default function useVerifyLogic() {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const popupRef = useRef(null);
@@ -15,47 +16,29 @@ export default function useVerifyLogic() {
     handleButton: null,
   });
   const navigate = useNavigate();
-  const email = useLocation()?.email;
+  const email = useLocation().state;
 
   const isValid = (code) => /^\d{6}$/.test(code);
 
   const handleSubmit = async () => {
+    //join characters
     const finalCode = code.join("");
 
+    // Do not proceed until the verification code is fully entered (must be 6 digits)
+    if(finalCode.length < 6) return
+
+    //check code
     if (!isValid(finalCode)) {
-      setNotification({
-        title: "Invalid",
-        colorTitle: "red",
-        content: "Verify code should not be empty!",
-        image: errorImg,
-      });
+      setNotification({ title: "Invalid", colorTitle: "red", content: "Verify code should not be empty!", image: errorImg});
       return popupRef.current.showModal();
     }
 
+    //handle verify api
     loaderRef.current.showModal();
-    userApi
-      .verify(email, finalCode)
-      .then((res) => {
-        setNotification({
-          title: "Verify Successful",
-          colorTitle: "green",
-          content: res.data.message,
-          image: successfulImg,
-          handleButton: () => navigate("/login"),
-        });
-      })
-      .catch((err) => {
-        setNotification({
-          title: "Invalid",
-          colorTitle: "red",
-          content: err.response?.data?.message || "Something went wrong!",
-          image: errorImg,
-        });
-      })
-      .finally(() => {
-        popupRef.current.showModal();
-        loaderRef.current.close();
-      });
+    const response = await handleVerifyRequest(email, finalCode);
+    handleVerifyResponse(response, {setNotification, navigate, img: { successfulImg, errorImg }});
+    popupRef.current.showModal();
+    loaderRef.current.close();
   };
   return {
     loaderRef,
