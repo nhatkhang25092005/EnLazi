@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 const userApi = {
   //register ~
   register: (email, username, password) =>
-    axiosClient.post(import.meta.env.VITE_API_LOGIN, {
+    axiosClient.post(import.meta.env.VITE_API_REGISTER, {
       email: email,
       username: username,
       password: password,
