@@ -3,5 +3,6 @@ export const PATH = {
     REGISTER:"/register",
     VERIFY:"./verify",
     FORGOT_PASSWORD:"/forgot",
-    DASHBOARD:"/dashboard"
+    DASHBOARD:"/dashboard",
+    VERIFY_FORGOT:"./verify_forgot"
 }

@@ -32,7 +32,7 @@ export function handleRegisterResponse(
   response,
   { navigate, email, setErrorMessages, setPopupContent, popup }
 ) {
-  console.log(email)
+  console.log(email);
   if (!response) {
     navigate(PATH.VERIFY, { state: email });
     return;
@@ -75,6 +75,31 @@ export function handleVerifyResponse(
       colorTitle: "red",
       content: response.error || "Something went wrong!",
       image: errorImg,
+    });
+  }
+}
+
+//handle forgot password response
+export function handleForgotPasswordResponse(
+  response,
+  { navigate, setErrorMessage, setPopupContent,errorImage }
+) {
+  //success
+  if (!response) {
+    navigate(PATH.VERIFY_FORGOT);
+    return;
+  }
+  if (response.type === DISPLAY.type1) {
+    setErrorMessage(response.errors[0]);
+  }
+  if (response.type === DISPLAY.type2) {
+    console.log("Hello")
+    setPopupContent({
+      title: "Error!" ,
+      colorTitle: "red",
+      content: response.error,
+      image: errorImage,
+      handleButton: null,
     });
   }
 }

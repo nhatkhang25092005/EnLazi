@@ -51,6 +51,7 @@ export function handleGoogleRequest(code) {
     });
 }
 
+//Verify Account
 export function handleVerifyRequest(email, code) {
   if(!email) return {type:DISPLAY.type2,error:"email is empty!"}
   return userApi
@@ -61,4 +62,13 @@ export function handleVerifyRequest(email, code) {
       error: err.response.data.message,
     }
   ));
+}
+
+//Forgot Password
+export function handleForgotPasswordRequest(email){
+  if(!email) return {type:DISPLAY.type2,error:"email can not be empty!"}
+  return userApi
+    .forgotPassword(email)
+    .then(()=>null)
+    .catch((err)=>classifyError(err))
 }
