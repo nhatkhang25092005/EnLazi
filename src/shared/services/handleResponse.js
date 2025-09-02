@@ -82,11 +82,11 @@ export function handleVerifyResponse(
 //handle forgot password response
 export function handleForgotPasswordResponse(
   response,
-  { navigate, setErrorMessage, setPopupContent,errorImage }
+  { navigate, email, setErrorMessage, setPopupContent, errorImage }
 ) {
   //success
   if (!response) {
-    navigate(PATH.VERIFY_FORGOT);
+    navigate(PATH.VERIFY_FORGOT,{state:email});
     return;
   }
   if (response.type === DISPLAY.type1) {
@@ -101,5 +101,41 @@ export function handleForgotPasswordResponse(
       image: errorImage,
       handleButton: null,
     });
+  }
+}
+
+export function handleVerifyForgotPasswordResponse(response,{
+  navigate,
+  setPopupContent,
+  popupRef,
+  setErrorMessage,
+  image:{successfulImg,errorImg}
+}){
+  if(!response){
+    setPopupContent({
+      title:"Change Password Successful",
+      content:"Your password has been changed successfully!",
+      colorTitle:"green",
+      image:successfulImg,
+      handleButton:()=>navigate(PATH.LOGIN)
+    })
+    popupRef.current.showModal()
+    return
+  }
+  if(response.type === DISPLAY.type1){
+    //magic text error
+    setErrorMessage(response.errors)
+    return
+  }
+  if(response.type === DISPLAY.type2){
+    //popup error
+    setPopupContent({
+      title:"Error",
+      content:response.error,
+      image:errorImg,
+      colorTitle:"red",
+    })
+    popupRef.current.showModal()
+    return
   }
 }

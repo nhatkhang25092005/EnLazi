@@ -46,7 +46,7 @@ export default function useForgotPassword(){
         //call api right here
         loader.current.showModal()
         const response = await handleForgotPasswordRequest(email)
-        handleForgotPasswordResponse(response,{navigate,setErrorMessage,setPopupContent,errorImage})
+        handleForgotPasswordResponse(response,{navigate,setErrorMessage,setPopupContent,errorImage,email})
         popupRef.current.showModal()
         loader.current.close()
     }

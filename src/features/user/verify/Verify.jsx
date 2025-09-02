@@ -2,10 +2,7 @@
 import "./verify.css";
 
 //feature components
-import {PopupModal} from "../components";
-
-//verify component
-import CodeInput from "./components/CodeInput";
+import {PopupModal,CodeInput} from "../components";
 
 //custom hook
 import useVerifyLogic from "./useVerifyLogic";
