@@ -13,3 +13,7 @@ export function checkEmptyObject(object) {
   }
   return Object.keys(emptyKey).length ? emptyKey : null
 }
+
+//check empty array
+
+//check empty input

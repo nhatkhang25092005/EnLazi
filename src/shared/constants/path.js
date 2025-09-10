@@ -4,5 +4,6 @@ export const PATH = {
     VERIFY:"./verify",
     FORGOT_PASSWORD:"/forgot",
     DASHBOARD:"/dashboard",
-    VERIFY_FORGOT:"./verify_forgot"
+    VERIFY_FORGOT:"./verify_forgot",
+    TEST:"/test"
 }

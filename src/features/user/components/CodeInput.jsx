@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import "./componentsStyle.css"
-import codeImg from "../../../assets/password.png"
+import {Icons} from "../../../imageAccess"
 export default function CodeInput({ code, setCode }) {
   const inputRefs = useRef([]);
 
@@ -61,7 +61,7 @@ export default function CodeInput({ code, setCode }) {
 
   return (
     <div id="code-input">
-      <img src={codeImg} alt="code" />
+      <img src={Icons.password} alt="code" />
       {code.map((digit, index) => (
         <input
           autoComplete="one-time-code"

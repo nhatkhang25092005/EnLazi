@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { handleVerifyForgotPassword } from "../../../shared/services/handleRequest";
-import { handleVerifyForgotPasswordResponse } from "../../../shared/services/handleResponse";
-import { errorImg, successfulImg } from "../../../assets";
+import { processVerifyForgotPasswordResponse } from "../../../shared/services/handleResponse";
+import { Status } from "../../../imageAccess";
 
 export function useVerifyForgotPassword() {
   //navigate
@@ -10,6 +10,9 @@ export function useVerifyForgotPassword() {
 
   //popup modal
   const popupRef = useRef();
+
+  //loader modal
+  const loader = useRef()
 
   //error message
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,6 +35,17 @@ export function useVerifyForgotPassword() {
     setPassword(password);
   }
 
+  const uiProps = {
+    navigate,
+    setErrorMessage,
+    setPopupContent,
+    image : {
+      successfulImg: Status.success,
+      errorImg: Status.error
+    },
+    popupRef,
+  }
+
   //handle api
   async function handleSubmit(e) {
     e.preventDefault();
@@ -47,22 +61,15 @@ export function useVerifyForgotPassword() {
     } else setErrorMessage("");
 
     //handle api here =)
-    const response = await handleVerifyForgotPassword(
-      email,
-      finalCode,
-      password
-    );
-    handleVerifyForgotPasswordResponse(response, {
-      navigate,
-      setPopupContent,
-      popupRef,
-      setErrorMessage,
-      image: { successfulImg: successfulImg, errorImg: errorImg },
-    });
+    loader.current. showModal()
+    const response = await handleVerifyForgotPassword(email, finalCode, password );
+    processVerifyForgotPasswordResponse(response, uiProps);
+    loader.current.close()
     console.log(response);
   }
 
   return {
+    loader,
     popupContent,
     errorMessage,
     popupRef,

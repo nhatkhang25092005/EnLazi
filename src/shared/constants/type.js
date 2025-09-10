@@ -1,10 +1,11 @@
 export const DISPLAY = {
-    type1 : "magic",
-    type2 : "popup"
+    INLINE : "inline", //display on the input fields =)
+    POPUP : "popup" // show a popup modal =)
 }
 
 export const STATUS = {
-    ok : "Call Api Successfully",
-    netErr : "Network Error ",
-    
+    UNKNOWN:"Empty information",
+    OK : 200,
+    NOT_FOUND : 404,
+    BAD_REQUEST:400,
 }

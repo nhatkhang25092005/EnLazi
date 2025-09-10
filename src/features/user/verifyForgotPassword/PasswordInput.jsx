@@ -1,4 +1,4 @@
-import PasswordImg from "../../../assets/password.png";
+import {Icons} from "../../../imageAccess";
 export default function PasswordInput({name, value, changeFunc }) {
   return (
     <label
@@ -9,7 +9,7 @@ export default function PasswordInput({name, value, changeFunc }) {
       }}
     >
       <img
-        src={PasswordImg}
+        src={Icons.password}
         style={{
           position: "absolute",
           width: "25px",

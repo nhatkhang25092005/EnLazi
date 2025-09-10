@@ -1,5 +1,5 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import ggImg from "../../assets/googleIcon.png";
+import { Icons } from "../../imageAccess";
 import { useNavigate } from "react-router-dom";
 import { handleGoogleRequest } from "../services/handleRequest";
 import { PATH } from "../constants/path";
@@ -24,7 +24,7 @@ export default function GoogleButton() {
       onClick={login}
     >
       <img
-        src={ggImg}
+        src={Icons.google}
         style={{
           position: "absolute",
           width: "35px",

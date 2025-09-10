@@ -3,6 +3,8 @@ import "./style.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./features/dashboard/dashboard";
 
+import Test from "./features/test/Test";
+
 // user features
 import {
   Login,
@@ -15,7 +17,9 @@ import {
 function App() {
   return (
     <BrowserRouter>
-      <Routes> vb
+    <Test/>
+      <Routes>
+        <Route path="/test" element={<Test/>}/>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

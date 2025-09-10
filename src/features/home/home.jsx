@@ -1,4 +1,4 @@
-import img from "../../assets/homeImg.png";
+import {Others} from "../../imageAccess";
 import { useNavigate } from "react-router-dom";
 import "./home.css";
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
   const navigate = useNavigate();
   return (
     <div id="home">
-      <img id="image" src={img} alt="Home image" />
+      <img id="image" src={Others.home} alt="Home image" />
       <div id="authorizeOption">
         <p style={{ fontSize: "25px", textAlign: "center" }}>
           <strong>

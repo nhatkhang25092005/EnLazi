@@ -12,7 +12,7 @@ import {
 import {Loader} from "../../../shared/components";
 
 //image
-import errorImg from "../../../assets/error.png";
+import {Status} from "../../../imageAccess";
 
 //page component
 import  RegisterPassword  from "./components/RegisterPassword";
@@ -42,7 +42,7 @@ export default function Register() {
   return (
     <div id="register-page">
       <Loader ref={loader} />
-      <PopupModal image={errorImg} title={REGISTER_CONSTANTS.ERROR_TITLE} content={popupContent} ref={popup} />
+      <PopupModal image={Status.error} title={REGISTER_CONSTANTS.ERROR_TITLE} content={popupContent} ref={popup} />
       <NavigateButton name={REGISTER_CONSTANTS.NAVIGATE_BUTTON} destination={PATH.LOGIN} />
       <form id="register_form" onSubmit={(e) => handleSubmit(e)}>
         <h1><strong>{REGISTER_CONSTANTS.TITLE}</strong></h1>

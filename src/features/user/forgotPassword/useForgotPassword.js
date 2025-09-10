@@ -1,8 +1,8 @@
 import { useRef, useState } from "react"
 import { handleForgotPasswordRequest } from "../../../shared/services/handleRequest"
 import { useNavigate } from "react-router-dom"
-import { handleForgotPasswordResponse } from "../../../shared/services/handleResponse"
-import errorImage from "../../../assets/error.png"
+import { processForgotPasswordResponse } from "../../../shared/services/handleResponse"
+import {Status} from "../../../imageAccess"
 
 export default function useForgotPassword(){
     //loader
@@ -27,6 +27,14 @@ export default function useForgotPassword(){
     //magic message
     const [errorMessage,setErrorMessage] = useState("")
 
+    //UI Props need to handle response
+    const uiProps = { 
+        navigate, 
+        setErrorMessage,
+        setPopupContent, 
+        errorImg:Status.error,
+        popupRef
+    }
 
     //handle email input
     function handleChange(e){ setEmail(e.target.value) }
@@ -46,8 +54,7 @@ export default function useForgotPassword(){
         //call api right here
         loader.current.showModal()
         const response = await handleForgotPasswordRequest(email)
-        handleForgotPasswordResponse(response,{navigate,setErrorMessage,setPopupContent,errorImage,email})
-        popupRef.current.showModal()
+        processForgotPasswordResponse(response,uiProps,email)
         loader.current.close()
     }
 

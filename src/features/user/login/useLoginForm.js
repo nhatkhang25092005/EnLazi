@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { handleLoginRequest } from "../../../shared/services/handleRequest";
 import { useNavigate } from "react-router-dom";
-import { handleLoginResponse } from "../../../shared/services/handleResponse";
+import { processLoginResponse } from "../../../shared/services/handleResponse";
 import { checkEmptyObject } from "../../../shared/services/checkEmpty";
 
 /* prettier-ignore */
@@ -28,6 +28,14 @@ export default function useLoginForm() {
     }));
   }
 
+  const uiProps = {
+    navigate,
+    setErrorMessages,
+    setPopupContent,
+    popup
+  }
+
+
   //handle submit
   async function handleSubmit(e) {
     e.preventDefault();
@@ -44,9 +52,11 @@ export default function useLoginForm() {
 
     //handle Api req and res =)
     const response = await handleLoginRequest(input.email, input.password); //call api
-    handleLoginResponse(response, {navigate, setErrorMessages, setPopupContent, popup,}); //handle api
+    processLoginResponse(response, uiProps); //handle api
     loader.current.close()
   }
+
+  
 
   return {
     input,

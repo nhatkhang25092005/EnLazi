@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import errorImg from "../../../assets/error.png";
-import successfulImg from "../../../assets/successful.png";
+import { Status } from "../../../imageAccess";
 import { handleVerifyRequest } from "../../../shared/services/handleRequest";
-import { handleVerifyResponse } from "../../../shared/services/handleResponse";
+import { processVerifyResponse } from "../../../shared/services/handleResponse";
 export default function useVerifyLogic() {
+  const successImg = Status.success
+  const errorImg = Status.error
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const popupRef = useRef(null);
   const loaderRef = useRef(null);
@@ -17,6 +18,13 @@ export default function useVerifyLogic() {
   });
   const navigate = useNavigate();
   const email = useLocation().state;
+
+  const uiProps = {
+    navigate, 
+    setNotification,
+    img: { successImg, errorImg },
+    popupRef,
+  }
 
   const isValid = (code) => /^\d{6}$/.test(code);
 
@@ -36,8 +44,7 @@ export default function useVerifyLogic() {
     //handle verify api
     loaderRef.current.showModal();
     const response = await handleVerifyRequest(email, finalCode);
-    handleVerifyResponse(response, {setNotification, navigate, img: { successfulImg, errorImg }});
-    popupRef.current.showModal();
+    processVerifyResponse(response, uiProps);
     loaderRef.current.close();
   };
   return {

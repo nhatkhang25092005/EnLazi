@@ -1,6 +1,4 @@
-import password from "../../../assets/password.png";
-import openEye from "../../../assets/openEye.png";
-import closeEye from "../../../assets/closeEye.png";
+import { Icons } from "../../../imageAccess";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +15,7 @@ export default function PasswordInput({value, changeFunc}) {
       }}
     >
       <img
-        src={password}
+        src={Icons.closeEye}
         style={{
           width: "20px",
           position: "absolute",
@@ -42,7 +40,7 @@ export default function PasswordInput({value, changeFunc}) {
         placeholder="password"
       ></input>
       <img
-        src={showPass ? openEye : closeEye}
+        src={showPass ? Icons.openEye : Icons.closeEye}
         onClick={() => setShowPass((showPass) => !showPass)}
         style={{
           width: "20px",

@@ -1,37 +1,120 @@
 import userApi from "../../api/userApi";
 import { DISPLAY } from "../constants/type";
+import { STATUS } from "../constants/type";
 
-function classifyError(err) {
-  const messages = err?.response?.data?.message;
+//API Response Format
+class ApiResponse {
 
-  if (Array.isArray(messages)) {
-    return { type: DISPLAY.type1, errors: messages };
-  } else {
-    return { type: DISPLAY.type2, error: messages };
+  //constructor to create a response object
+  constructor(status, message, data = null, displayType = null) {
+    this.status = status ?? STATUS.UNKNOWN;
+    this.message = message ?? "Unknown Error";
+    this.data = data;
+    this.displayType = displayType;
   }
+
+  //get the message from api response if success
+  static getMessageFromApi(res) {
+    return res?.data?.message ?? "Can not get message response";
+  }
+
+  //get the message from api error response if error
+  static getMessageError(err) {
+    if (!err?.response) return "Network error or no response from server";
+    return err.response.data?.message ?? "Unknown error from server";
+  }
+
+  //check if the response is success
+  isOk() {
+    return this.status >= 200 && this.status < 300;
+  }
+}
+
+//classifier module
+function classifyError(err) {
+  const message = ApiResponse.getMessageError(err);
+  const status = err?.response?.status ?? STATUS.BAD_REQUEST;
+  const data = err?.response?.data ?? null;
+  const displayType = Array.isArray(message) ? DISPLAY.INLINE : DISPLAY.POPUP;
+
+  return { status, displayType, message, data };
 }
 
 //Login
 export function handleLoginRequest(email, password) {
   return (
     userApi
+      //call login api
       .login(email, password)
-      //login successfully
-      .then(() => {
-        return null;
+
+      // If login is successful, return a formatted response object
+      /** Response format:
+       * {
+       *  status: status code return from the api
+       *  message: Message from the api response
+       *  data: Optional data returned by the API (can be null)
+       * }
+       */
+
+      //debug
+      // .then((res)=>{console.log(res)})
+      .then((res) => new ApiResponse(res.status, ApiResponse.getMessageFromApi(res), res.data))
+
+      // If Login is not successful, classify the error and return a structured error response
+      /**
+       * step 1 : classify the error type (is it an array or a single message?)
+       * step 2 : Based on the classification, return the formatted code error object
+       * Error response format:
+       * {
+       *  status: Status code
+       *  message: Error Message(s), can be a string or an array depending on classification
+       *  data: Optional data from the API response
+       *  displayType: Type of display based on classification
+       * }
+       */
+      .catch((err) => {
+        const { status, displayType, message, data } = classifyError(err);
+        return new ApiResponse(status, message, data, displayType);
       })
-      .catch((err) => classifyError(err))
   );
 }
 
 //Register
 export function handleRegisterRequest(email, username, password) {
-  return userApi
+  return( 
+    userApi
+    //call register api
     .register(email, username, password)
-    .then(() => {
-      return null;
+
+     /**
+     * If register is successful, return a formatted response object
+     * Response format:
+     * {
+     *  status: status code return from the api
+     *  message: Message from the api response
+     *  data: Optional data returned by the API (can be null)
+     * }
+     */
+    .then((res) => new ApiResponse(res.status, ApiResponse.getMessageFromApi(res), res.data)) 
+    
+    // If register is not successful, classify the error and return a structured error response
+    /**
+     * step 1 : classify the error type (is it an array or a single message?)
+     * step 2 : Based on the classification, return the formatted code error object
+     * 
+     * Error response format:
+     * {
+     *  status: Status code
+     *  message: Error Message(s), can be a string or an array depending on classification
+     *  data: Optional data from the API response
+     *  displayType: Type of display based on classification
+     * }
+     */
+    .catch((err) => {
+      const { status, displayType, message, data } = classifyError(err);
+      return new ApiResponse(status, message, data, displayType);
     })
-    .catch((err) => classifyError(err));
+  )
 }
 
 //Google
@@ -46,48 +129,77 @@ export function handleGoogleRequest(code) {
       return null;
     })
     .catch((err) => {
-      console.err("Google Error:", err);
+      console.error("Google Error:", err);
       alert("Login with google fail, Please try again");
     });
 }
 
 //Verify Account
 export function handleVerifyRequest(email, code) {
-  if (!email) return { type: DISPLAY.type2, error: "email is empty!" };
+  if (!email) return new ApiResponse(STATUS.BAD_REQUEST, "email can not be null", null, DISPLAY.POPUP);
   return userApi
     .verify(email, code)
-    .then(() => null)
-    .catch((err) => ({
-      type: DISPLAY.type2,
-      error: err.response.data.message,
-    }));
+    .then((res) => new ApiResponse(res.status, ApiResponse.getMessageFromApi(res), res.data))
+    .catch((err) => {
+      const { status, displayType, message, data } = classifyError(err);
+      return new ApiResponse(status, message, data, displayType);
+    });
 }
 
 //Forgot Password
 export function handleForgotPasswordRequest(email) {
-  if (!email) return { type: DISPLAY.type2, error: "email can not be empty!" };
+  if( !email) return new ApiResponse(STATUS.BAD_REQUEST, "email can not be null", null, DISPLAY.POPUP)
+
   return userApi
     .forgotPassword(email)
-    .then(() => null)
-    .catch((err) => classifyError(err));
+
+    //successful
+    /**
+     * successful response format:
+     * {
+     *  status:status of response
+     *  message: message return from api
+     *  data: data return from api
+     *  display type: the type of display
+     * }
+     */
+    .then((res) => new ApiResponse(res.status, ApiResponse.getMessageFromApi(res), res.data, DISPLAY.POPUP))
+    
+    //error
+    .catch((err) => {
+      const {status, displayType, message, data} = classifyError(err)
+      return new ApiResponse(status, message, data, displayType)
+    });
 }
 
 //Verify Forgot Password
+/**
+ * Verify forgot password api call, if successful, the user password will be changed to the new password
+ * else return the error response 
+ * 
+ * @param {string} email - user email
+ * @param {string} code  - verify code
+ * @param {string} newPassword - new password
+ * @returns 
+ */
 export function handleVerifyForgotPassword(email, code, newPassword) {
-  if (!email) { 
+  if (!email) {
     console.error("email can not be null");
-    return {type:DISPLAY.type2,error:"email can not be null"}
+    return new ApiResponse(STATUS.BAD_REQUEST ,"email can not be null",  null, DISPLAY.POPUP);
   }
-  if (!code) { 
+  if (!code) {
     console.error("code can not be null");
-    return {type:DISPLAY.type2,error:"code can not be null"}
+    return new ApiResponse(STATUS.BAD_REQUEST ,"code can not be null",  null, DISPLAY.POPUP);
   }
-  if (!newPassword) { 
+  if (!newPassword) {
     console.error("newPassword can not be null");
-    return {type:DISPLAY.type1,error:"newPassword can not be null"}
+    return new ApiResponse(STATUS.BAD_REQUEST ,"new password can not be null",  null, DISPLAY.INLINE);
   }
   return userApi
     .verifyForgotPassword(email, code, newPassword)
-    .then(() => null)
-    .catch((err) => classifyError(err));
+    .then((res) => new ApiResponse(res.status, ApiResponse.getMessageFromApi(res), res.data, DISPLAY.POPUP))
+    .catch((err) => {
+      const {status, displayType, message, data } = classifyError(err)
+      return new ApiResponse(status, message, data, displayType)
+    });
 }

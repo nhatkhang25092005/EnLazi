@@ -1,4 +1,4 @@
-import emailImg from "../../../assets/email.png";
+import {Icons} from "../../../imageAccess";
 export default function EmailInput({ value, changeFunc }) {
   return (
     <div
@@ -9,7 +9,7 @@ export default function EmailInput({ value, changeFunc }) {
       }}
     >
       <img
-        src={emailImg}
+        src={Icons.email}
         alt=""
         style={{
           position: "absolute",

@@ -1,6 +1,4 @@
-import PasswordImg from "../../../../assets/password.png";
-import openEye from "../../../../assets/openEye.png";
-import closeEye from "../../../../assets/closeEye.png";
+import { Icons } from "../../../../imageAccess";
 import { useState } from "react";
 export default function RegisterPassword({name, value, changeFunc, placeholder }) {
   const [show, setShow] = useState(false);
@@ -18,7 +16,7 @@ export default function RegisterPassword({name, value, changeFunc, placeholder }
       }}
     >
       <img
-        src={PasswordImg}
+        src={Icons.password}
         style={{
           position: "absolute",
           width: "25px",
@@ -27,7 +25,7 @@ export default function RegisterPassword({name, value, changeFunc, placeholder }
         }}
       />
       <img
-        src={show ? closeEye : openEye}
+        src={show ? Icons.openEye: Icons.closeEye }
         onClick={handleOnClick}
         style={{
           position: "absolute",

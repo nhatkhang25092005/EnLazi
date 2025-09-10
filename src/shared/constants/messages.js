@@ -23,3 +23,8 @@ export const VERIFY_CONSTANTS={
     TELL2:"Please check it and fill in the field below.",
     BUTTON_TEXT:"Submit"
 }
+
+//constant texts for forgot page
+export const FORGOT_CONSTANTS = {
+    
+}

@@ -12,7 +12,7 @@ import {
 } from "../components";
 
 //image
-import errImg from "../../../assets/error.png";
+import {Status} from "../../../imageAccess";
 
 //shared components
 import { Loader } from "../../../shared/components";
@@ -39,7 +39,7 @@ export default function Login() {
   /* prettier-ignore */
   return (
     <>
-      <PopupModal title={LOGIN_CONSTANTS.ERROR_TITLE} colorTitle="red" content={popupContent} image={errImg} ref={popup} />
+      <PopupModal title={LOGIN_CONSTANTS.ERROR_TITLE} colorTitle="red" content={popupContent} image={Status.error} ref={popup} />
       <Loader ref={loader} />
       <NavigateButton name={LOGIN_CONSTANTS.NAVIGATE_BUTTON} destination={PATH.REGISTER} />
       <form id="login_form">

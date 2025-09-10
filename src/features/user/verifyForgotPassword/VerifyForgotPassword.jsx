@@ -2,11 +2,13 @@ import { CodeInput, FormField, PopupModal } from "../components"
 import PasswordInput from "./PasswordInput"
 import { useVerifyForgotPassword } from "./useVerifyForgotPassword"
 import "./style.css"
+import { Loader } from "../../../shared/components"
 export default function VerifyForgotPassword(){
-    const {popupRef, popupContent,errorMessage,code,setCode,password,handleChangePassword, handleSubmit} = useVerifyForgotPassword()
+    const {loader, popupRef, popupContent,errorMessage,code,setCode,password,handleChangePassword, handleSubmit} = useVerifyForgotPassword()
     
     return(
    <div>
+    <Loader ref={loader}/>
     <PopupModal {...popupContent} ref={popupRef}/>
      <div id="reset_form">
          <h1>Reset Password</h1>

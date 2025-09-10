@@ -1,4 +1,4 @@
-import usernameIcon from "../../../assets/username.png"
+import {Icons} from "../../../imageAccess"
 export default function UsernameInput({value, changeFunc}) {
   return (
     <div
@@ -9,7 +9,7 @@ export default function UsernameInput({value, changeFunc}) {
       }}
     >
       <img
-        src={usernameIcon}
+        src={Icons.username}
         alt=""
         style={{
           position: "absolute",
