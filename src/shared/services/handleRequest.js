@@ -121,16 +121,17 @@ export function handleRegisterRequest(email, username, password) {
 export function handleGoogleRequest(code) {
   return userApi
     .google(code)
-    .then((res) => {
+    .then((res) => {      
       const data = res.data.data;
       sessionStorage.setItem("accessToken", data.accesstoken);
       sessionStorage.setItem("refreshToken", data.refreshtoken);
       sessionStorage.setItem("sessionId", data.sessionid);
-      return null;
+      return new ApiResponse(res.status, ApiResponse.getMessageFromApi(res), res.data.data);
     })
     .catch((err) => {
       console.error("Google Error:", err);
-      alert("Login with google fail, Please try again");
+      const {status, displayType, message, data} = classifyError(error)
+      return new ApiResponse(status, message, data, displayType)
     });
 }
 
