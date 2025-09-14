@@ -11,6 +11,7 @@ export default function GoogleButton() {
     onSuccess: async (response) => {
       const apiRes = await handleGoogleRequest(response.code)
       if(apiRes.isOk()) navigate(PATH.DASHBOARD)
+      console.log(apiRes)
     },
     onError: () => {
       console.log("Login fail!");
