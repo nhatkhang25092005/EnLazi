@@ -122,6 +122,7 @@ export function handleGoogleRequest(code) {
   return userApi
     .google(code)
     .then((res) => {      
+      console.log(res)
       const data = res.data.data;
       sessionStorage.setItem("accessToken", data.accesstoken);
       sessionStorage.setItem("refreshToken", data.refreshtoken);
