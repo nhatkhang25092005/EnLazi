@@ -130,7 +130,7 @@ export function handleGoogleRequest(code) {
     })
     .catch((err) => {
       console.error("Google Error:", err);
-      const {status, displayType, message, data} = classifyError(error)
+      const {status, displayType, message, data} = classifyError(err)
       return new ApiResponse(status, message, data, displayType)
     });
 }
