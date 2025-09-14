@@ -32,7 +32,10 @@ function handleResponse(res, handler = {}) {
     },
     [DISPLAY.POPUP] : () => {
       handler.onPopup?.(res.message)
-    } 
+    },
+    [DISPLAY.ALERT] : () => {
+      handler.onAlert?.(res.message || "Error occurs")
+    }
   }
 
   //select the display type handler, if not defined, log an error
@@ -206,8 +209,6 @@ export function processForgotPasswordResponse( response, uiProps, email ) {
  *    - setErrorMessage: function to set the error message state
  */
 export function processVerifyForgotPasswordResponse( response, uiProps){
-  console.log("response", response)
-  console.log("uiProps", uiProps)
   handleResponse(response,
     {
       //handle success case
@@ -232,6 +233,21 @@ export function processVerifyForgotPasswordResponse( response, uiProps){
           colorTitle: "red",
         }
       )
+    }
+  )
+}
+
+/**
+ * 
+ * @param {Object} response - Response object return form Google Api
+ * @param {Object} uiProps  - Related ui Object used to display responses
+ */
+export function processGoogle(response, uiProps){
+  handleResponse(
+    response, 
+    {
+      onSuccess: () => uiProps.navigate(PATH.DASHBOARD),
+      onAlert: (message) => {window.alert(message || "Error Occurs")},
     }
   )
 }

@@ -2,16 +2,21 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { Icons } from "../../imageAccess";
 import { useNavigate } from "react-router-dom";
 import { handleGoogleRequest } from "../services/handleRequest";
+import { processGoogle } from "../services/handleResponse";
 import { PATH } from "../constants/path";
 
 export default function GoogleButton() {
   const navigate = useNavigate(null);
+  const uiProps = {
+    navigate,
+  }
   const login = useGoogleLogin({
     flow: `auth-code`,
     onSuccess: async (response) => {
       const apiRes = await handleGoogleRequest(response.code)
       if(apiRes.isOk()) navigate(PATH.DASHBOARD)
-      console.log(apiRes)
+      processGoogle(apiRes, uiProps)
+
     },
     onError: () => {
       console.log("Login fail!");
